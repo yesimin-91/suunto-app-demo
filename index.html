@@ -1,0 +1,1540 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Suunto App Demo</title>
+  <style>
+    @font-face {
+      font-family: "Proxima Nova";
+      src: url("fonts/font/Proxima Nova Reg.otf") format("opentype");
+      font-weight: 400;
+    }
+
+    @font-face {
+      font-family: "Proxima Nova";
+      src: url("fonts/font/Proxima Nova Sbold.otf") format("opentype");
+      font-weight: 600;
+    }
+
+    @font-face {
+      font-family: "Proxima Nova";
+      src: url("fonts/font/Proxima Nova Bold.otf") format("opentype");
+      font-weight: 700;
+    }
+
+    :root {
+      --app: #000000;
+      --list: #121212;
+      --surface: #171719;
+      --surface-2: #222324;
+      --surface-3: #303030;
+      --line: #252525;
+      --line-strong: #454649;
+      --text: #d8dbdd;
+      --text-soft: #aeb4b8;
+      --text-muted: #67696d;
+      --blue: #59c7fe;
+      --yellow: #ffce4d;
+      --orange: #ff8b5f;
+      --green: #55d781;
+      --lime: #c8e879;
+      --red: #fc4044;
+      --purple: #ae97ee;
+      --pink: #f1adbd;
+      --radius: 12px;
+      --pill: 999px;
+      font-family: "Proxima Nova", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color: var(--text);
+      background: var(--app);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      background: #202224;
+    }
+
+    button {
+      border: 0;
+      color: inherit;
+      font: inherit;
+      background: transparent;
+    }
+
+    .phone {
+      position: relative;
+      width: min(100vw, 390px);
+      height: min(100vh, 844px);
+      min-height: 720px;
+      overflow: hidden;
+      background: var(--app);
+      box-shadow: 0 18px 70px rgba(0, 0, 0, 0.45);
+    }
+
+    .screen {
+      position: absolute;
+      inset: 0;
+      display: none;
+      background: var(--app);
+    }
+
+    .screen.active { display: block; }
+
+    .status {
+      height: 54px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      padding: 0 24px 12px;
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      letter-spacing: 0.1px;
+    }
+
+    .system-icons {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 10px;
+    }
+
+    .sig {
+      width: 14px;
+      height: 10px;
+      display: inline-flex;
+      align-items: end;
+      gap: 1px;
+    }
+
+    .sig i {
+      width: 2px;
+      border-radius: 2px;
+      background: #fff;
+    }
+
+    .sig i:nth-child(1) { height: 4px; }
+    .sig i:nth-child(2) { height: 6px; }
+    .sig i:nth-child(3) { height: 8px; }
+    .sig i:nth-child(4) { height: 10px; }
+
+    .battery {
+      width: 18px;
+      height: 9px;
+      border: 1.5px solid #fff;
+      border-radius: 3px;
+      position: relative;
+    }
+
+    .battery::after {
+      content: "";
+      position: absolute;
+      right: -3px;
+      top: 2px;
+      width: 2px;
+      height: 3px;
+      background: #fff;
+      border-radius: 0 2px 2px 0;
+    }
+
+    .battery::before {
+      content: "";
+      position: absolute;
+      inset: 1px 4px 1px 1px;
+      background: #fff;
+      border-radius: 1px;
+    }
+
+    .topbar {
+      height: 52px;
+      display: grid;
+      grid-template-columns: 48px 1fr 48px;
+      align-items: center;
+      padding: 0 8px;
+      background: var(--app);
+    }
+
+    .topbar h1 {
+      margin: 0;
+      text-align: center;
+      text-transform: uppercase;
+      color: #fff;
+      font-size: 11px;
+      line-height: 16px;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+    }
+
+    .homebar {
+      height: 52px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--app);
+    }
+
+    .home-actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    .icon-btn {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      border-radius: var(--pill);
+      color: var(--text-soft);
+      cursor: pointer;
+    }
+
+    .icon-btn.small {
+      width: 30px;
+      height: 30px;
+      font-size: 15px;
+    }
+
+    .device-pill {
+      width: 56px;
+      height: 32px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-around;
+      border: 1px solid var(--line);
+      border-radius: var(--pill);
+      cursor: pointer;
+    }
+
+    .watch-dot {
+      width: 14px;
+      height: 14px;
+      border: 1.7px solid #fff;
+      border-radius: 50%;
+      position: relative;
+    }
+
+    .watch-dot::after {
+      content: "";
+      position: absolute;
+      inset: 4px;
+      background: var(--blue);
+      border-radius: 50%;
+    }
+
+    .tabs {
+      height: 48px;
+      display: flex;
+      align-items: end;
+      gap: 24px;
+      padding: 0 16px;
+      border-bottom: 1px solid var(--line);
+      background: var(--app);
+    }
+
+    .tab {
+      height: 48px;
+      display: grid;
+      place-items: center;
+      color: var(--text-muted);
+      font-size: 13px;
+      font-weight: 700;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .tab.active {
+      color: var(--blue);
+    }
+
+    .tab.active::after {
+      content: "";
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 2px;
+      background: var(--blue);
+      border-radius: 2px 2px 0 0;
+    }
+
+    .scroll {
+      height: calc(100% - 154px - 76px);
+      overflow-y: auto;
+      padding-bottom: 22px;
+      scrollbar-width: none;
+    }
+
+    .screen.no-nav .scroll {
+      height: calc(100% - 106px);
+      padding-bottom: 28px;
+    }
+
+    .scroll::-webkit-scrollbar { width: 0; }
+
+    .bottom-nav {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 76px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      align-items: center;
+      padding: 8px 16px 14px;
+      border-top: 1px solid var(--line);
+      background: rgba(0, 0, 0, 0.96);
+      z-index: 4;
+    }
+
+    .nav {
+      display: grid;
+      gap: 5px;
+      justify-items: center;
+      color: var(--text-muted);
+      font-size: 10px;
+      cursor: pointer;
+    }
+
+    .nav svg {
+      width: 22px;
+      height: 22px;
+      stroke: currentColor;
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .nav.active { color: #fff; }
+
+    .home-indicator {
+      position: absolute;
+      left: 50%;
+      bottom: 7px;
+      width: 134px;
+      height: 5px;
+      transform: translateX(-50%);
+      border-radius: var(--pill);
+      background: #fff;
+      z-index: 5;
+    }
+
+    .section-label {
+      margin: 0;
+      padding: 14px 16px 10px;
+      color: #fff;
+      font-size: 14px;
+      line-height: 18px;
+      font-weight: 700;
+    }
+
+    .widget-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      padding: 0 16px 20px;
+    }
+
+    .widget {
+      min-height: 170px;
+      border-radius: 14px;
+      background: var(--surface);
+      padding: 12px;
+      overflow: hidden;
+    }
+
+    .widget-head {
+      min-height: 28px;
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+      color: var(--text-soft);
+      font-size: 11px;
+      line-height: 13px;
+    }
+
+    .widget-head span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+      margin-top: 1px;
+    }
+
+    .widget-icon {
+      width: 20px;
+      height: 20px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #000;
+      font-size: 12px;
+      font-weight: 700;
+      background: var(--blue);
+      flex: 0 0 auto;
+    }
+
+    .value {
+      margin-top: 10px;
+      color: #fff;
+      font-size: 30px;
+      line-height: 31px;
+      font-weight: 400;
+      letter-spacing: -0.5px;
+    }
+
+    .value small {
+      color: var(--text-soft);
+      font-size: 14px;
+      line-height: 16px;
+      margin-left: 2px;
+    }
+
+    .caption {
+      color: var(--text-muted);
+      font-size: 10px;
+      line-height: 14px;
+    }
+
+    .mini-chart {
+      height: 48px;
+      margin-top: 12px;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      color: var(--yellow);
+    }
+
+    .mini-chart.bar i {
+      width: 10px;
+      height: calc(var(--h) * 1%);
+      min-height: 3px;
+      border-radius: 2px 2px 0 0;
+      background: currentColor;
+    }
+
+    .sparkline {
+      width: 100%;
+      height: 46px;
+      margin-top: 12px;
+    }
+
+    .progress {
+      height: 12px;
+      border-radius: var(--pill);
+      background: var(--surface-3);
+      overflow: hidden;
+      margin-top: 18px;
+    }
+
+    .progress > span {
+      display: block;
+      height: 100%;
+      width: var(--p);
+      background: var(--c, var(--blue));
+    }
+
+    .days {
+      display: flex;
+      justify-content: space-between;
+      color: var(--text-muted);
+      font-size: 9px;
+      margin-top: 6px;
+    }
+
+    .sport-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 42px;
+      align-items: center;
+      gap: 8px;
+      margin-top: 8px;
+      font-size: 11px;
+    }
+
+    .sport-row .dot {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #000;
+      font-weight: 700;
+      background: var(--c);
+    }
+
+    .sport-row .line {
+      height: 5px;
+      border-radius: var(--pill);
+      background: var(--surface-3);
+      overflow: hidden;
+    }
+
+    .sport-row .line span {
+      display: block;
+      height: 100%;
+      width: var(--p);
+      background: var(--c);
+    }
+
+    .widget.map {
+      padding: 0;
+      position: relative;
+    }
+
+    .widget.map img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .map-badge {
+      position: absolute;
+      left: 12px;
+      bottom: 12px;
+      padding: 5px 8px;
+      border-radius: var(--pill);
+      background: rgba(0, 0, 0, 0.68);
+      color: #fff;
+      font-size: 11px;
+    }
+
+    .chip-row {
+      display: flex;
+      gap: 8px;
+      padding: 16px 16px 10px;
+    }
+
+    .chip {
+      height: 32px;
+      padding: 0 14px;
+      border-radius: var(--pill);
+      color: var(--text-soft);
+      background: var(--surface);
+      font-size: 12px;
+      cursor: pointer;
+    }
+
+    .chip.active {
+      color: #001117;
+      background: var(--blue);
+      font-weight: 700;
+    }
+
+    .activity-list {
+      display: grid;
+      gap: 16px;
+      padding: 0 16px 20px;
+    }
+
+    .activity-card {
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .route-map {
+      position: relative;
+      height: 186px;
+      background: #2a2a2a;
+    }
+
+    .route-map img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      filter: saturate(0.82) brightness(0.94);
+    }
+
+    .route-map svg {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+    }
+
+    .map-pill {
+      position: absolute;
+      left: 12px;
+      top: 12px;
+      padding: 5px 9px;
+      border-radius: var(--pill);
+      color: #fff;
+      background: rgba(0, 0, 0, 0.42);
+      font-size: 10px;
+    }
+
+    .activity-body {
+      padding: 13px 14px 14px;
+    }
+
+    .activity-title {
+      display: grid;
+      grid-template-columns: 36px 1fr 32px;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .sport-bubble {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #000;
+      background: var(--yellow);
+      font-weight: 700;
+    }
+
+    h2, h3, p { margin: 0; }
+
+    .activity-title h3 {
+      color: #fff;
+      font-size: 15px;
+      line-height: 18px;
+    }
+
+    .metric-row {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+      margin-top: 12px;
+    }
+
+    .metric-row .metric {
+      color: #fff;
+      font-size: 17px;
+      line-height: 20px;
+    }
+
+    .metric-row span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+      line-height: 13px;
+    }
+
+    .card-actions {
+      display: flex;
+      gap: 20px;
+      padding-top: 12px;
+      color: var(--text-soft);
+      font-size: 20px;
+    }
+
+    .photo-section {
+      padding: 0 0 20px 16px;
+    }
+
+    .photo-strip {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-right: 16px;
+      scrollbar-width: none;
+    }
+
+    .photo-strip::-webkit-scrollbar { width: 0; }
+
+    .photo-strip img {
+      width: 164px;
+      height: 212px;
+      flex: 0 0 auto;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .calendar-wrap {
+      padding: 0 20px 24px;
+    }
+
+    .month-head {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-top: 24px;
+    }
+
+    .month-head h2 {
+      color: #fff;
+      font-size: 26px;
+      line-height: 30px;
+    }
+
+    .calendar-grid {
+      display: grid;
+      grid-template-columns: repeat(7, 1fr);
+      row-gap: 14px;
+      margin-top: 18px;
+      text-align: center;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .weekday {
+      color: var(--text-muted);
+      font-size: 10px;
+      font-weight: 700;
+    }
+
+    .day {
+      min-height: 34px;
+      display: grid;
+      place-items: center;
+      position: relative;
+      cursor: pointer;
+    }
+
+    .day::after {
+      content: "";
+      position: absolute;
+      left: 50%;
+      bottom: -2px;
+      width: 6px;
+      height: 6px;
+      transform: translateX(-50%);
+      border-radius: 50%;
+      background: var(--text-muted);
+    }
+
+    .day.big::after {
+      width: 27px;
+      height: 27px;
+      bottom: 3px;
+      z-index: 0;
+      background: var(--c);
+    }
+
+    .day.hot::after {
+      width: 42px;
+      height: 42px;
+      bottom: -4px;
+      border: 5px solid rgba(255, 206, 77, 0.48);
+      background: var(--c);
+    }
+
+    .day span {
+      position: relative;
+      z-index: 1;
+      color: #fff;
+    }
+
+    .month-summary {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 6px;
+      margin: 18px 0;
+      color: #fff;
+      font-size: 15px;
+      text-align: center;
+    }
+
+    .month-summary span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+      margin-top: 3px;
+    }
+
+    .summary-card {
+      border-radius: 13px;
+      background: var(--surface);
+      padding: 12px;
+      margin-bottom: 12px;
+    }
+
+    .summary-card h3 {
+      color: #fff;
+      font-size: 15px;
+      margin-bottom: 8px;
+    }
+
+    .summary-progress {
+      height: 6px;
+      border-radius: var(--pill);
+      background: var(--surface-3);
+      overflow: hidden;
+      margin: 8px 0;
+    }
+
+    .summary-progress span {
+      display: block;
+      width: var(--p);
+      height: 100%;
+      background: var(--c);
+    }
+
+    .wide-map {
+      height: 284px;
+      border-radius: 14px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .wide-map img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+
+    .daily-summary {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 18px 22px;
+      padding: 18px 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .daily-summary .daily-metric {
+      display: grid;
+      grid-template-columns: 32px 1fr;
+      gap: 9px;
+      align-items: center;
+    }
+
+    .daily-icon {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #000;
+      background: var(--c);
+      font-weight: 700;
+    }
+
+    .daily-metric strong {
+      display: block;
+      color: #fff;
+      font-size: 18px;
+      line-height: 22px;
+    }
+
+    .daily-metric span {
+      color: var(--text-muted);
+      font-size: 11px;
+    }
+
+    .daily-cards {
+      display: grid;
+      gap: 12px;
+      padding: 16px;
+    }
+
+    .compact-activity {
+      display: grid;
+      grid-template-columns: 36px 1fr;
+      gap: 10px;
+      border-radius: 13px;
+      background: var(--surface);
+      padding: 12px;
+    }
+
+    .chart-card {
+      border-top: 1px solid var(--line);
+      padding: 16px 16px 20px;
+    }
+
+    .chart-card h3 {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      color: #fff;
+      font-size: 16px;
+      line-height: 20px;
+      margin-bottom: 12px;
+    }
+
+    .chart-card h3 small {
+      color: var(--blue);
+      font-size: 11px;
+    }
+
+    .sleep-bars {
+      height: 140px;
+      display: flex;
+      align-items: end;
+      gap: 8px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .sleep-stack {
+      width: 10px;
+      height: var(--h);
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 2px;
+    }
+
+    .sleep-stack i {
+      display: block;
+      height: var(--s);
+      background: var(--c);
+      border-radius: 2px;
+    }
+
+    .line-chart {
+      width: 100%;
+      height: 120px;
+      margin-top: 12px;
+    }
+
+    .bar-chart {
+      height: 128px;
+      display: flex;
+      align-items: end;
+      gap: 9px;
+      padding-top: 12px;
+    }
+
+    .bar-stack {
+      width: 13px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 2px;
+    }
+
+    .bar-stack i {
+      display: block;
+      height: var(--h);
+      border-radius: 2px 2px 0 0;
+      background: var(--c);
+    }
+
+    .training-wrap {
+      padding: 0 16px 20px;
+    }
+
+    .period-row {
+      height: 42px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 13px;
+    }
+
+    .training-stats {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr 1fr;
+      gap: 8px;
+      margin: 12px 0 18px;
+    }
+
+    .stat-box {
+      border-radius: 12px;
+      background: var(--surface);
+      padding: 11px;
+      color: #fff;
+      font-size: 15px;
+      border: 1px solid transparent;
+    }
+
+    .stat-box.active { border-color: var(--blue); }
+
+    .stat-box span {
+      display: block;
+      color: var(--blue);
+      font-size: 10px;
+      margin-bottom: 5px;
+    }
+
+    .stacked-bars {
+      height: 168px;
+      display: flex;
+      align-items: end;
+      justify-content: space-between;
+      margin-bottom: 22px;
+    }
+
+    .tbar {
+      width: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: end;
+      gap: 0;
+    }
+
+    .tbar i {
+      display: block;
+      height: var(--h);
+      background: var(--c);
+    }
+
+    .zone-row {
+      display: grid;
+      grid-template-columns: 24px 1fr 72px;
+      gap: 10px;
+      align-items: center;
+      margin: 12px 0;
+      color: #fff;
+      font-size: 12px;
+    }
+
+    .zone-num {
+      width: 22px;
+      height: 22px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: #000;
+      background: var(--c);
+      font-weight: 700;
+    }
+
+    .zone-track {
+      height: 7px;
+      border-radius: var(--pill);
+      background: var(--surface-3);
+      overflow: hidden;
+    }
+
+    .zone-track span {
+      display: block;
+      height: 100%;
+      width: var(--p);
+      background: var(--c);
+    }
+
+    .impact-list {
+      display: grid;
+      gap: 16px;
+      margin-top: 18px;
+      border-top: 1px solid var(--line);
+      padding-top: 16px;
+    }
+
+    .impact-row {
+      display: grid;
+      grid-template-columns: 110px 1fr 28px;
+      gap: 10px;
+      align-items: center;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .profile-hero {
+      position: relative;
+      height: 356px;
+      overflow: hidden;
+      text-align: center;
+    }
+
+    .profile-hero::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.1), #000 82%),
+        url("assets/profile bg.png") center top / cover;
+    }
+
+    .profile-hero .status,
+    .profile-actions,
+    .profile-content {
+      position: relative;
+      z-index: 1;
+    }
+
+    .profile-actions {
+      display: flex;
+      justify-content: flex-end;
+      gap: 10px;
+      padding: 0 20px;
+    }
+
+    .profile-content {
+      margin-top: 58px;
+      display: grid;
+      justify-items: center;
+    }
+
+    .avatar {
+      width: 96px;
+      height: 96px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 2px solid #000;
+    }
+
+    .profile-content h2 {
+      margin-top: 12px;
+      color: #fff;
+      font-size: 24px;
+      line-height: 27px;
+    }
+
+    .profile-body {
+      height: calc(100% - 356px - 76px);
+      overflow-y: auto;
+      padding: 0 16px 28px;
+      scrollbar-width: none;
+    }
+
+    .profile-body::-webkit-scrollbar { width: 0; }
+
+    .panel {
+      margin-bottom: 14px;
+      border-radius: 14px;
+      background: var(--surface);
+      overflow: hidden;
+    }
+
+    .panel-pad { padding: 16px; }
+
+    .panel-title {
+      display: flex;
+      justify-content: space-between;
+      color: #fff;
+      font-size: 15px;
+      font-weight: 700;
+      margin-bottom: 12px;
+    }
+
+    .profile-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      margin-bottom: 12px;
+      color: #fff;
+      font-size: 16px;
+    }
+
+    .profile-stats span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 10px;
+    }
+
+    .thumbs {
+      display: flex;
+      gap: 8px;
+      overflow: hidden;
+      margin-bottom: 14px;
+    }
+
+    .thumbs img {
+      width: 78px;
+      height: 96px;
+      object-fit: cover;
+      border-radius: 8px;
+    }
+
+    .badges {
+      display: flex;
+      gap: 12px;
+    }
+
+    .badges img {
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+    }
+
+    .list-row {
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 28px 1fr 16px;
+      gap: 10px;
+      align-items: center;
+      padding: 10px 16px;
+      border-bottom: 1px solid var(--line);
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+    }
+
+    .list-row:last-child { border-bottom: 0; }
+
+    .list-row span {
+      display: block;
+      color: var(--text-muted);
+      font-size: 11px;
+      line-height: 14px;
+      margin-top: 2px;
+    }
+
+    .settings-list {
+      height: calc(100% - 106px);
+      overflow-y: auto;
+      background: var(--list);
+      padding-bottom: 26px;
+      scrollbar-width: none;
+    }
+
+    .settings-list::-webkit-scrollbar { width: 0; }
+
+    .settings-section {
+      height: 28px;
+      display: flex;
+      align-items: center;
+      padding: 0 14px;
+      background: #000;
+      color: var(--text-soft);
+      font-size: 12px;
+    }
+
+    .setting-row {
+      min-height: 56px;
+      display: grid;
+      grid-template-columns: 1fr auto;
+      align-items: center;
+      gap: 10px;
+      padding: 8px 14px;
+      border-bottom: 1px solid var(--line);
+      color: var(--text);
+      font-size: 13px;
+    }
+
+    .setting-row.tall { min-height: 70px; }
+
+    .setting-row small {
+      display: block;
+      color: var(--text-muted);
+      font-size: 11px;
+      line-height: 14px;
+      margin-top: 2px;
+    }
+
+    .setting-value {
+      color: var(--blue);
+      font-size: 12px;
+      text-align: right;
+    }
+
+    .seg-toggle {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      border-radius: var(--pill);
+      background: var(--surface-3);
+    }
+
+    .seg-toggle i {
+      width: 24px;
+      height: 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-style: normal;
+      font-size: 11px;
+    }
+
+    .seg-toggle i.active {
+      color: #000;
+      background: var(--blue);
+    }
+
+    .signout {
+      display: block;
+      width: 100%;
+      height: 48px;
+      color: var(--blue);
+      font-size: 12px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .pair-hero {
+      display: grid;
+      justify-items: center;
+      padding: 20px 16px 10px;
+    }
+
+    .watch-wrap {
+      position: relative;
+      width: 210px;
+      height: 210px;
+      display: grid;
+      place-items: center;
+    }
+
+    .watch-wrap img {
+      width: 180px;
+      height: 180px;
+      object-fit: contain;
+      opacity: 0.72;
+    }
+
+    .check {
+      position: absolute;
+      width: 72px;
+      height: 72px;
+    }
+
+    .battery-state {
+      margin-top: 12px;
+      color: #fff;
+      text-align: center;
+      font-size: 15px;
+    }
+
+    .sync {
+      display: block;
+      margin-top: 18px;
+      color: var(--blue);
+      font-size: 11px;
+      font-weight: 700;
+      text-align: center;
+    }
+
+    .banner {
+      margin: 16px 8px 10px;
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--surface);
+    }
+
+    .banner img {
+      width: 100%;
+      height: 104px;
+      object-fit: cover;
+      display: block;
+    }
+
+    .banner-copy {
+      padding: 10px 12px 12px;
+    }
+
+    .pair-list .list-row {
+      grid-template-columns: 1fr 18px;
+      min-height: 56px;
+      color: var(--text);
+      cursor: default;
+    }
+
+    .pair-list .list-row > div:first-child { grid-column: 1; }
+
+    .pair-list .divider {
+      height: 8px;
+      background: #000;
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+    }
+
+    @media (max-width: 390px) {
+      body {
+        display: block;
+        background: #000;
+      }
+
+      .phone {
+        width: 100vw;
+        height: 100vh;
+        min-height: 100vh;
+        box-shadow: none;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="phone" id="app">
+    <section class="screen active" data-screen="home">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="homebar">
+        <button class="device-pill" data-open="pairing" aria-label="Open paired device"><span class="watch-dot"></span><span style="font-size:18px">⋮</span></button>
+        <div class="home-actions"><button class="icon-btn">＋</button><button class="icon-btn">♧</button></div>
+      </div>
+      <div class="tabs">
+        <button class="tab active" data-home-tab="dashboard">Dashboard</button>
+        <button class="tab" data-home-tab="activities">Activities</button>
+      </div>
+      <div class="scroll" id="dashboardView">
+        <h2 class="section-label">Widgets</h2>
+        <div class="widget-grid">
+          <article class="widget"><div class="widget-head"><div>Steps<span>Today</span></div><b class="widget-icon" style="--blue:#8ac7ff;background:#8ac7ff">⌁</b></div><div class="value">3653</div><p class="caption">+6371 steps off target</p><div class="progress" style="--p:58%;--c:#9bcaff"><span></span></div><div class="days"><span>0%</span><span>100%</span></div></article>
+          <article class="widget"><div class="widget-head"><div>HRV<span>Today</span></div><b class="widget-icon" style="background:var(--lime)">♡</b></div><div class="value">65<small>ms</small></div><p class="caption">Normal</p><svg class="sparkline" viewBox="0 0 140 46"><polyline points="2,38 18,35 34,36 50,18 66,24 82,12 98,17 114,17 138,14" fill="none" stroke="#c8e879" stroke-width="2"/><g fill="#c8e879"><circle cx="50" cy="18" r="3"/><circle cx="82" cy="12" r="3"/><circle cx="138" cy="14" r="3"/></g></svg><div class="days"><span>M</span><span>W</span><span>T</span><span>F</span><span>S</span></div></article>
+          <article class="widget"><div class="widget-head"><div>Training load<span>This week</span></div><b class="widget-icon" style="background:var(--yellow)">⚡</b></div><div class="value">120<small>TSS</small></div><p class="caption">20 TSS</p><div class="mini-chart bar" style="color:var(--yellow)"><i style="--h:28"></i><i style="--h:42"></i><i style="--h:35"></i><i style="--h:58"></i><i style="--h:48"></i><i style="--h:36"></i><i style="--h:68"></i></div><div class="days"><span>F</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div></article>
+          <article class="widget"><div class="widget-head"><div>Duration<span>This week</span></div><b class="widget-icon" style="background:#88e0cf">◕</b></div><div class="value">8<small>h</small>25<small>min</small></div><p class="caption">4 h 25 min off target</p><div class="progress" style="--p:72%;--c:#88e0cf"><span></span></div></article>
+          <article class="widget"><div class="widget-head"><div>VO₂max<span>Oct 21</span></div><b class="widget-icon" style="background:var(--green)">♥</b></div><div class="value">49.3</div><p class="caption">Good</p><div class="progress" style="--p:76%;--c:linear-gradient(90deg,#fc4044 0 24%,#ffce4d 24% 56%,#55d781 56%)"><span></span></div><div class="days"><span>33</span><span>39</span><span>44</span><span>51</span><span>56</span></div></article>
+          <article class="widget"><div class="widget-head"><div>Recovery<span>Today</span></div><b class="widget-icon" style="background:var(--lime)">⟳</b></div><div class="value">60<small>%</small></div><p class="caption">Pay attention</p><div class="progress" style="--p:62%;--c:var(--lime)"><span></span></div></article>
+          <article class="widget"><div class="widget-head"><div>Sleep<span>Last night</span></div><b class="widget-icon" style="background:var(--purple)">☾</b></div><div class="value">7<small>h</small>50<small>min</small></div><p class="caption">+15 min off target</p><div class="mini-chart bar" style="color:var(--purple)"><i style="--h:38"></i><i style="--h:57"></i><i style="--h:47"></i><i style="--h:65"></i><i style="--h:32"></i><i style="--h:50"></i><i style="--h:54"></i></div></article>
+          <article class="widget"><div class="widget-head"><div>Heart rate<span>Today</span></div><b class="widget-icon" style="background:var(--red)">♥</b></div><div class="value">60-80<small>bpm</small></div><p class="caption">Avg. 68 bpm</p><svg class="sparkline" viewBox="0 0 140 46"><polyline points="1,39 12,32 20,34 28,27 36,26 44,25 52,22 61,24 70,18 80,16 90,12 101,15 112,11 123,14 139,9" fill="none" stroke="#fc4044" stroke-width="2"/></svg></article>
+          <article class="widget"><div class="widget-head"><div>Avg. pace<span>This week</span></div><b class="widget-icon" style="background:var(--yellow)">♞</b></div><div class="value">6'30<small>/km</small></div><p class="caption">1'30 /km</p><div class="mini-chart bar" style="color:var(--yellow)"><i style="--h:20"></i><i style="--h:34"></i><i style="--h:18"></i><i style="--h:42"></i><i style="--h:32"></i><i style="--h:52"></i><i style="--h:70"></i></div></article>
+          <article class="widget"><div class="widget-head"><div>Avg.speed<span>This week</span></div><b class="widget-icon" style="background:var(--orange)">♻</b></div><div class="value">20<small>km/h</small></div><p class="caption">2 km/h</p><div class="mini-chart bar" style="color:var(--orange)"><i style="--h:18"></i><i style="--h:35"></i><i style="--h:42"></i><i style="--h:50"></i><i style="--h:63"></i><i style="--h:56"></i><i style="--h:68"></i></div></article>
+          <article class="widget"><div class="widget-head"><div>Activity<span>This week</span></div><b class="widget-icon" style="background:#92e2c1">✕</b></div><div class="sport-row" style="--c:var(--orange);--p:80%"><span class="dot">♻</span><span class="line"><span></span></span><b>3:54</b></div><div class="sport-row" style="--c:var(--yellow);--p:64%"><span class="dot">♞</span><span class="line"><span></span></span><b>1:45</b></div><div class="sport-row" style="--c:var(--green);--p:48%"><span class="dot">♙</span><span class="line"><span></span></span><b>0:39</b></div><div class="sport-row" style="--c:var(--text-muted);--p:32%"><span class="dot">…</span><span class="line"><span></span></span><b>0:52</b></div></article>
+          <article class="widget"><div class="widget-head"><div>Sunday<span>October</span></div></div><div class="value" style="font-size:42px">22</div><div class="days" style="margin-top:34px"><span>M</span><span>T</span><span>W</span><span>T</span><span>F</span><span>S</span><span>S</span></div><div class="days" style="justify-content:center;gap:8px"><span style="color:var(--orange)">●</span><span>●</span><span style="color:var(--yellow)">●</span><span style="color:var(--yellow)">●</span><span style="color:var(--green)">●</span></div></article>
+          <article class="widget"><div class="widget-head"><div>Calories<span>Today</span></div><b class="widget-icon" style="background:var(--yellow)">♨</b></div><div class="value">123<small>kcal</small></div><p class="caption">-177 kcal off target</p><div class="progress" style="--p:70%;--c:var(--yellow)"><span></span></div></article>
+          <article class="widget map"><img src="assets/map.png" alt="Map activity overview"><span class="map-badge">18 activities</span></article>
+        </div>
+      </div>
+      <div class="scroll" id="activitiesView" hidden>
+        <div class="chip-row"><button class="chip active">All</button><button class="chip">Me</button><button class="chip">Flowing</button></div>
+        <div class="activity-list">
+          <article class="activity-card"><div class="route-map"><img src="assets/map.png" alt="Trail route"><span class="map-pill">Chamonix-Mont-Blanc · 18°C · 4 m/s</span><svg viewBox="0 0 343 186"><polyline points="22,110 55,95 84,112 113,78 145,70 172,47 205,58 244,30 280,55 314,40" fill="none" stroke="#ff0000" stroke-width="3"/></svg></div><div class="activity-body"><div class="activity-title"><span class="sport-bubble">♞</span><div><h3>Trail running</h3><p class="caption">12.11.2024, 19:36 · Kristy Jones</p></div><img src="assets/Avatar.png" alt="" style="width:30px;height:30px;border-radius:50%"></div><div class="metric-row"><p class="metric"><span>Duration</span>1:55'47</p><p class="metric"><span>Distance</span>19.5 km</p><p class="metric"><span>Ascent</span>433 m</p></div><div class="card-actions"><span>♡ 3</span><span>◌ 5</span><span>⌯</span></div></div></article>
+          <article class="activity-card"><div class="route-map"><img src="assets/map.png" alt="Trail route"><span class="map-pill">Chamonix-Mont-Blanc · 18°C · 4 m/s</span><svg viewBox="0 0 343 186"><polyline points="25,115 76,88 124,99 164,60 196,77 226,44 278,66 316,38" fill="none" stroke="#ff0000" stroke-width="3"/></svg></div><div class="activity-body"><div class="activity-title"><span class="sport-bubble">♞</span><div><h3>Trail running</h3><p class="caption">12.11.2024, 19:36 · Kristy Jones</p></div><img src="assets/Avatar.png" alt="" style="width:30px;height:30px;border-radius:50%"></div><div class="metric-row"><p class="metric"><span>Duration</span>1:55'47</p><p class="metric"><span>Distance</span>19.5 km</p><p class="metric"><span>Ascent</span>433 m</p></div><div class="card-actions"><span>♡ 3</span><span>◌ 5</span><span>⌯</span></div></div></article>
+          <section class="photo-section"><h2 class="section-label" style="padding-left:0">Share a photo</h2><div class="photo-strip"><img src="assets/.ShareCrouselItem 1.png" alt=""><img src="assets/.ShareCrouselItem 2.png" alt=""><img src="assets/.ShareCrouselItem 3.png" alt=""><img src="assets/.ShareCrouselItem 4.png" alt=""></div></section>
+        </div>
+      </div>
+      <nav class="bottom-nav"></nav><div class="home-indicator"></div>
+    </section>
+
+    <section class="screen simple" data-screen="calendar">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="topbar"><span></span><h1>Calendar</h1><button class="icon-btn small">＋</button></div>
+      <div class="tabs"><button class="tab active">Diary</button><button class="tab">My Plan</button></div>
+      <div class="scroll">
+        <div class="chip-row"><button class="chip">Week</button><button class="chip active">Month</button><button class="chip">Year</button><button class="chip">30 days</button></div>
+        <div class="calendar-wrap">
+          <div class="month-head"><div><h2>July</h2><p class="caption">17 activities</p></div><button class="icon-btn small">⇧</button></div>
+          <div class="calendar-grid">
+            <span class="weekday">M</span><span class="weekday">T</span><span class="weekday">W</span><span class="weekday">T</span><span class="weekday">F</span><span class="weekday">S</span><span class="weekday">S</span>
+            <span></span><span></span><span class="day"><span>1</span></span><span class="day"><span>2</span></span><span class="day"><span>3</span></span><span class="day"><span>4</span></span><button class="day big" style="--c:var(--green)"><span>5</span></button>
+            <span class="day"><span>6</span></span><span class="day"><span>7</span></span><button class="day big" style="--c:var(--orange)"><span>8</span></button><button class="day big" style="--c:var(--orange)"><span>9</span></button><button class="day big" style="--c:var(--yellow)" data-open="daily"><span>10</span></button><span class="day"><span>11</span></span><button class="day big" style="--c:var(--yellow)"><span>12</span></button>
+            <button class="day big" style="--c:var(--orange)"><span>13</span></button><button class="day big" style="--c:var(--orange)"><span>14</span></button><span class="day"><span>15</span></span><span class="day"><span>16</span></span><button class="day big" style="--c:var(--yellow)"><span>17</span></button><span class="day"><span>18</span></span><span class="day"><span>19</span></span>
+            <button class="day big" style="--c:var(--orange)"><span>20</span></button><button class="day hot" style="--c:var(--orange)"><span>21</span></button><span class="day"><span>22</span></span><span class="day"><span>23</span></span><button class="day hot" style="--c:var(--green)"><span>24</span></button><span class="day"><span>25</span></span><button class="day big" style="--c:var(--red)"><span>26</span></button>
+            <span class="day"><span>27</span></span><button class="day big" style="--c:var(--yellow)"><span>28</span></button><span class="day"><span>29</span></span><button class="day big" style="--c:var(--yellow)"><span>30</span></button><span class="day"><span>31</span></span>
+          </div>
+          <div class="month-summary"><p>23:08<span>Duration h</span></p><p>162,7<span>Distance km</span></p><p>15,9<span>Ascent m</span></p><p>11541<span>Calories kcal</span></p></div>
+          <article class="summary-card" style="--c:var(--yellow);--p:82%"><h3>Running</h3><div class="summary-progress"><span></span></div><div class="metric-row"><p class="metric"><span>Duration h</span>8:06</p><p class="metric"><span>Distance km</span>54,7</p><p class="metric"><span>Calories kcal</span>4641</p></div></article>
+          <article class="summary-card" style="--c:var(--orange);--p:74%"><h3>Cycling</h3><div class="summary-progress"><span></span></div><div class="metric-row"><p class="metric"><span>Duration h</span>12:45</p><p class="metric"><span>Activities</span>97,2</p><p class="metric"><span>Calories kcal</span>5712</p></div></article>
+          <article class="summary-card" style="--c:var(--green);--p:70%"><h3>Walking</h3><div class="summary-progress"><span></span></div><div class="metric-row"><p class="metric"><span>Duration h</span>1:55</p><p class="metric"><span>Distance km</span>10.8</p><p class="metric"><span>Calories kcal</span>843</p></div></article>
+          <div class="wide-map"><img src="assets/map.png" alt="Monthly route map"></div>
+        </div>
+      </div>
+      <nav class="bottom-nav"></nav><div class="home-indicator"></div>
+    </section>
+
+    <section class="screen no-nav" data-screen="daily">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="topbar"><button class="icon-btn small" data-open="calendar">‹</button><h1>Today</h1><button class="icon-btn small">＋</button></div>
+      <div class="scroll">
+        <div class="daily-summary">
+          <div class="daily-metric"><b class="daily-icon" style="--c:var(--green)">♙</b><p><strong>2</strong><span>Activities</span></p></div>
+          <div class="daily-metric"><b class="daily-icon" style="--c:var(--yellow)">⚡</b><p><strong>425 kcal</strong><span>Exercise calories</span></p></div>
+          <div class="daily-metric"><b class="daily-icon" style="--c:var(--blue)">◷</b><p><strong>2h 23m</strong><span>Duration</span></p></div>
+          <div class="daily-metric"><b class="daily-icon" style="--c:var(--red)">♀</b><p><strong>Cycle day</strong><span>Predicted day 8</span></p></div>
+        </div>
+        <div class="daily-cards">
+          <article class="compact-activity"><span class="sport-bubble">♞</span><div><h3>Trail running</h3><p class="caption">Duration 1:55'47 · Distance 19.5 km · Ascent 433 m</p></div></article>
+          <article class="compact-activity"><span class="sport-bubble" style="background:var(--orange)">♻</span><div><h3>Trail running</h3><p class="caption">Duration 56'47 · Distance 10.5 km · Ascent 632 m</p></div></article>
+        </div>
+        <section class="chart-card"><h3>Sleep <small>7 h 30 min</small></h3><p style="font-size:22px;color:#fff;margin-bottom:8px">90%</p><p class="caption">Your sleep time is long and the sleep quality is high enough to make you recover from the daytime stress.</p><div class="sleep-bars"><span class="sleep-stack" style="--h:80px"><i style="--s:32px;--c:var(--purple)"></i><i style="--s:18px;--c:var(--pink)"></i></span><span class="sleep-stack" style="--h:96px"><i style="--s:44px;--c:var(--purple)"></i><i style="--s:22px;--c:var(--pink)"></i></span><span class="sleep-stack" style="--h:58px"><i style="--s:28px;--c:#7b64bb"></i></span><span class="sleep-stack" style="--h:116px"><i style="--s:70px;--c:var(--purple)"></i><i style="--s:24px;--c:var(--pink)"></i></span><span class="sleep-stack" style="--h:52px"><i style="--s:30px;--c:#7b64bb"></i></span><span class="sleep-stack" style="--h:122px"><i style="--s:68px;--c:var(--purple)"></i><i style="--s:32px;--c:var(--pink)"></i></span></div></section>
+        <section class="chart-card"><h3>Heart rate <small>68 bpm</small></h3><svg class="line-chart" viewBox="0 0 358 120"><polyline points="0,85 22,78 40,70 55,82 72,66 94,58 112,42 134,50 152,38 174,45 198,56 222,48 244,60 266,53 290,66 312,38 338,32 358,28" fill="none" stroke="#fc4044" stroke-width="3"/><line x1="0" x2="358" y1="90" y2="90" stroke="#252525"/><line x1="0" x2="358" y1="50" y2="50" stroke="#252525"/></svg></section>
+        <section class="chart-card"><h3>Resources <small>50% · Moderate</small></h3><div class="bar-chart"><span class="bar-stack"><i style="--h:48px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:72px;--c:#c8e879"></i></span><span class="bar-stack"><i style="--h:58px;--c:#ffce4d"></i></span><span class="bar-stack"><i style="--h:96px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:70px;--c:#ff8b5f"></i></span><span class="bar-stack"><i style="--h:88px;--c:#c8e879"></i></span><span class="bar-stack"><i style="--h:54px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:78px;--c:#55d781"></i></span></div></section>
+        <section class="chart-card"><h3>Steps <small>3653</small></h3><div class="bar-chart"><span class="bar-stack"><i style="--h:50px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:25px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:82px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:40px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:100px;--c:#9bcaff"></i></span><span class="bar-stack"><i style="--h:72px;--c:#9bcaff"></i></span></div></section>
+        <section class="chart-card"><h3>Calories <small>623 kcal</small></h3><div class="bar-chart"><span class="bar-stack"><i style="--h:44px;--c:var(--yellow)"></i></span><span class="bar-stack"><i style="--h:80px;--c:var(--yellow)"></i></span><span class="bar-stack"><i style="--h:110px;--c:var(--yellow)"></i></span><span class="bar-stack"><i style="--h:70px;--c:var(--yellow)"></i></span><span class="bar-stack"><i style="--h:95px;--c:var(--yellow)"></i></span></div></section>
+      </div>
+    </section>
+
+    <section class="screen simple" data-screen="training">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="topbar"><span></span><h1>Training Zone</h1><span></span></div>
+      <div class="tabs"><button class="tab active">Training</button><button class="tab">Progress</button><button class="tab">Recovery</button><button class="tab">Daily health</button></div>
+      <div class="scroll"><div class="training-wrap">
+        <div class="chip-row" style="padding-left:0"><button class="chip active">W</button><button class="chip">M</button><button class="chip">Y</button><button class="chip">More</button><button class="chip">Compare +</button></div>
+        <div class="period-row"><button>‹</button><strong>This week</strong><button>›</button></div>
+        <h2 class="section-label" style="padding-left:0">All sports</h2>
+        <p class="caption">Training volume</p>
+        <div class="training-stats"><div class="stat-box active"><span>Duration</span>6 h 45 min</div><div class="stat-box"><span>Load</span>345 TSS</div><div class="stat-box"><span>Distance</span>21.3 km</div></div>
+        <div class="stacked-bars"><span class="tbar"><i style="--h:58px;--c:var(--green)"></i><i style="--h:48px;--c:var(--purple)"></i><i style="--h:34px;--c:#9bcaff"></i></span><span class="tbar"><i style="--h:46px;--c:var(--orange)"></i><i style="--h:34px;--c:var(--green)"></i></span><span class="tbar"><i style="--h:50px;--c:var(--orange)"></i><i style="--h:42px;--c:#9bcaff"></i></span><span class="tbar"><i style="--h:38px;--c:var(--yellow)"></i><i style="--h:34px;--c:var(--purple)"></i></span><span class="tbar"><i style="--h:62px;--c:var(--green)"></i><i style="--h:52px;--c:#9bcaff"></i></span><span class="tbar"><i style="--h:76px;--c:#59c7fe"></i><i style="--h:44px;--c:var(--yellow)"></i></span><span class="tbar"><i style="--h:45px;--c:var(--green)"></i><i style="--h:38px;--c:var(--purple)"></i></span></div>
+        <h2 class="section-label" style="padding-left:0">Intensity zones</h2>
+        <div class="chip-row" style="padding:0 0 14px"><button class="chip active">Heart rate</button><button class="chip">Pace</button><button class="chip">Running power</button><button class="chip">Cycling pow</button></div>
+        <div class="zone-row" style="--c:var(--red);--p:20%"><span class="zone-num">5</span><span class="zone-track"><span></span></span><b>00:00'00</b></div>
+        <div class="zone-row" style="--c:var(--orange);--p:34%"><span class="zone-num">4</span><span class="zone-track"><span></span></span><b>00:00'00</b></div>
+        <div class="zone-row" style="--c:var(--yellow);--p:62%"><span class="zone-num">3</span><span class="zone-track"><span></span></span><b>00:00'00</b></div>
+        <div class="zone-row" style="--c:var(--green);--p:76%"><span class="zone-num">2</span><span class="zone-track"><span></span></span><b>00:00'00</b></div>
+        <div class="zone-row" style="--c:var(--blue);--p:100%"><span class="zone-num">1</span><span class="zone-track"><span></span></span><b>00:00'00</b></div>
+        <h2 class="section-label" style="padding-left:0">Impact</h2>
+        <div class="chip-row" style="padding:0"><button class="chip active">Cardio</button><button class="chip">Muscular</button></div>
+        <div class="impact-list">
+          <div class="impact-row" style="--c:var(--purple);--p:80%"><span>VO₂max</span><span class="zone-track"><span></span></span><b>8</b></div>
+          <div class="impact-row" style="--c:var(--red);--p:5%"><span>Anaerobic hard</span><span class="zone-track"><span></span></span><b>0</b></div>
+          <div class="impact-row" style="--c:var(--yellow);--p:86%"><span>Aerobic anaerobic</span><span class="zone-track"><span></span></span><b>8</b></div>
+          <div class="impact-row" style="--c:var(--green);--p:82%"><span>Heavy aerobic</span><span class="zone-track"><span></span></span><b>8</b></div>
+          <div class="impact-row" style="--c:var(--lime);--p:46%"><span>Long aerobic</span><span class="zone-track"><span></span></span><b>5</b></div>
+          <div class="impact-row" style="--c:#047bff;--p:80%"><span>Aerobic</span><span class="zone-track"><span></span></span><b>8</b></div>
+          <div class="impact-row" style="--c:var(--blue);--p:78%"><span>Recovery</span><span class="zone-track"><span></span></span><b>8</b></div>
+        </div>
+      </div></div>
+      <nav class="bottom-nav"></nav><div class="home-indicator"></div>
+    </section>
+
+    <section class="screen" data-screen="profile">
+      <div class="profile-hero"><div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div><div class="profile-actions"><button class="icon-btn small">✎</button><button class="icon-btn small" data-open="settings">⚙</button></div><div class="profile-content"><img class="avatar" src="assets/Avatar.png" alt="Kyrie Deng"><h2>Kyrie.Deng</h2><p class="caption" style="max-width:260px">Tracking progress, discovering new routes, and staying connected to nature.</p><p class="caption" style="margin-top:10px;color:#fff">Suunto Vertical &nbsp; Suunto Aqua</p><p style="color:#fff;margin-top:6px"><b>33</b> <span class="caption">following</span> &nbsp; <b>10</b> <span class="caption">followers</span></p></div></div>
+      <div class="profile-body">
+        <article class="panel panel-pad"><div class="panel-title"><span>408 activities</span><span>›</span></div><div class="profile-stats"><p>82K km<span>Distance</span></p><p>4,462<span>Days</span></p><p>7,848 h<span>Duration</span></p></div><div class="thumbs"><img src="assets/.ShareCrouselItem 1.png" alt=""><img src="assets/.ShareCrouselItem 2.png" alt=""><img src="assets/.ShareCrouselItem 3.png" alt=""><img src="assets/.ShareCrouselItem 4.png" alt=""></div><h3 style="font-size:15px;color:#fff">20 sports</h3><div class="sport-row" style="--c:var(--orange);--p:92%"><span class="dot">♻</span><span class="line"><span></span></span><b>606:17</b></div><div class="sport-row" style="--c:var(--yellow);--p:76%"><span class="dot">♞</span><span class="line"><span></span></span><b>527:02</b></div><div class="sport-row" style="--c:var(--green);--p:64%"><span class="dot">♙</span><span class="line"><span></span></span><b>501:11</b></div></article>
+        <article class="panel panel-pad"><div class="panel-title"><span>Badges <small class="caption">Earned a new badge</small></span><span>›</span></div><div class="badges"><img src="assets/Achievement badge 1.png" alt=""><img src="assets/Achievement badge 2.png" alt=""><img src="assets/Achievement badge 3.png" alt=""><img src="assets/Achievement badge 4.png" alt=""><img src="assets/Achievement badge 5.png" alt=""></div></article>
+        <div class="panel"><div class="list-row"><span>▤</span><div>Personal records<span>New record</span></div><b>›</b></div><div class="list-row"><span>▥</span><div>Leaderboard<span>No. 4</span></div><b>›</b></div></div>
+        <div class="panel"><div class="list-row"><span>♧</span><div>Find friends</div><b>›</b></div><div class="list-row"><span>♟</span><div>Teams up</div><b>›</b></div></div>
+        <div class="panel"><div class="list-row"><span>∞</span><div>Partner services<span>Connect your account with services from Suunto partners.</span></div><b>›</b></div><div class="list-row"><span>?</span><div>Help center<span>Get help, request customer service, or send feedback.</span></div><b>›</b></div><div class="list-row"><span style="color:var(--red)">▲</span><div>Visit Suunto.com<span>Products, guides, and latest updates.</span></div><b>›</b></div></div>
+      </div>
+      <nav class="bottom-nav"></nav><div class="home-indicator"></div>
+    </section>
+
+    <section class="screen no-nav" data-screen="settings">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="topbar"><button class="icon-btn small" data-open="profile">‹</button><h1>Settings</h1><span></span></div>
+      <div class="settings-list">
+        <div class="settings-section">Account</div><div class="setting-row"><span>Personal information</span></div><div class="setting-row"><span>Account settings</span></div><div class="setting-row"><span>Privacy settings</span></div>
+        <div class="settings-section">Activity & training</div><div class="setting-row"><span>Target settings</span></div><div class="setting-row"><span>Pair HR sensor</span></div>
+        <div class="settings-section">Outdoor</div><div class="setting-row"><span>Altitude offset</span><b class="setting-value">0 m</b></div>
+        <div class="settings-section">General</div><div class="setting-row"><span>Appearance<small>Automatic</small></span><span class="seg-toggle"><i class="active">◐</i><i>☼</i><i>☾</i></span></div><div class="setting-row"><span>Unit system</span><b class="setting-value">Metric</b></div><div class="setting-row"><span>Start of the week</span><b class="setting-value">Monday</b></div><div class="setting-row"><span>Menstrual cycle</span></div><div class="setting-row"><span>Tags</span></div><div class="setting-row"><span>Screen backlight</span><b class="setting-value">Automatic</b></div><div class="setting-row tall"><span>Power management<small>These settings affect the connectivity and tracking functionality</small></span></div>
+        <div class="settings-section">Notification</div><div class="setting-row"><span>Marketing permission</span></div><div class="setting-row"><span>Push notifications</span></div>
+        <div class="settings-section">Others</div><div class="setting-row"><span>Suunto on Facebook<small>Find us on Facebook</small></span></div><div class="setting-row"><span>Suunto on Twitter<small>Find us on Twitter</small></span></div><div class="setting-row"><span>Suunto on Instagram<small>Find us on Instagram</small></span></div>
+        <div class="settings-section">About APP</div><div class="setting-row"><span>Suunto blog</span></div><div class="setting-row"><span>Follow us</span></div><div class="setting-row"><span>Send logs to Suunto</span></div><div class="setting-row"><span>0.0000 (0000000)</span></div><div class="setting-row"><span>Service terms</span></div><div class="setting-row"><span>Privacy policy</span></div><div class="setting-row"><span>Data practices</span></div><div class="setting-row"><span>Open source licenses</span></div><button class="signout">Sign out</button>
+      </div>
+    </section>
+
+    <section class="screen no-nav" data-screen="pairing">
+      <div class="status"><span>19:36</span><span class="system-icons"><span class="sig"><i></i><i></i><i></i><i></i></span>⌁<span class="battery"></span></span></div>
+      <div class="topbar"><button class="icon-btn small" data-open="home">‹</button><h1>Suunto Race 2</h1><button class="icon-btn small">⚙</button></div>
+      <div class="scroll pair-list">
+        <div class="pair-hero"><div class="watch-wrap"><img src="assets/Watch.png" alt="Suunto Race watch"><svg class="check" viewBox="0 0 72 72"><path d="M18 36l12 12 25-27" fill="none" stroke="#10d76f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/></svg></div><p class="battery-state">▦ &nbsp; 89%</p><p class="caption">Last synced: 2 minutes ago</p><button class="sync">SYNC NOW</button></div>
+        <article class="banner"><img src="assets/SuuntoPlus store image.png" alt="SuuntoPlus Store"><div class="banner-copy"><h3>SuuntoPlus™ Store</h3><p class="caption">Discover new watch faces, apps, devices and services to connect with your watch.</p></div></article>
+        <div class="list-row"><div>My SuuntoPlus™ sports apps<span>View and manage guides on your watch.</span></div></div><div class="list-row"><div>My SuuntoPlus™ guides<span>View and manage guides on your watch.</span></div></div><div class="list-row"><div>My SuuntoPlus™ watch faces<span>View and manage watch faces on your watch.</span></div></div>
+        <div class="divider"></div>
+        <div class="list-row"><div>Interval workouts<span>Build workouts for your training goals.</span></div></div><div class="list-row"><div>Sport mode customization<span>Create custom sport modes to choose and data you want to see during activity.</span></div></div><div class="list-row"><div>Offline maps<span>Download offline maps to your watch that you can use without an internet connection.</span></div></div><div class="list-row"><div>Music Management<span>Edit and manage the music of the watch.</span></div></div><div class="list-row"><div>Widgets<span>Get to know widgets and select which ones to have ON and which ones OFF.</span></div></div><div class="list-row"><div>Suunto wallet<span>Manage the payment cards on your watch.</span></div></div><div class="list-row"><div>Notifications on watch<span>Notifications and phone calls are shown on watch.</span></div></div><div class="list-row"><div>Sync WeChat sports<span>Sync watch steps and exercise to WeChat sports.</span></div></div><div class="list-row"><div>Connection settings<span>These settings can enhance the stability of the connection between the app and watch.</span></div></div>
+        <div class="divider"></div>
+        <div class="list-row"><div>Introduction</div></div><div class="list-row"><div>User guide</div></div><div class="list-row"><div>Support</div></div><div class="list-row"><div>Manage connections</div></div><div class="list-row"><div>Storage</div></div><div class="list-row"><div>Switch to Suunto Race 0036<span>This will disconnect the Suunto 5.</span></div><span>○</span></div><div class="list-row"><div>Pair another device<span>This disconnects Suunto 9 Peak Pro.</span></div><span>＋</span></div>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const navMarkup = `
+      <button class="nav active" data-open="home"><svg viewBox="0 0 24 24"><path d="M3 10.5 12 3l9 7.5v9a1 1 0 0 1-1 1h-5v-6H9v6H4a1 1 0 0 1-1-1z"/></svg><span></span></button>
+      <button class="nav" data-open="calendar"><svg viewBox="0 0 24 24"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M8 3v4M16 3v4M4 10h16M8 14h.01M12 14h.01M16 14h.01M8 17h.01M12 17h.01M16 17h.01"/></svg><span></span></button>
+      <button class="nav" data-open="training"><svg viewBox="0 0 24 24"><path d="M5 19V9M12 19V5M19 19v-8"/></svg><span></span></button>
+      <button class="nav" data-open="profile"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1.3-4 12.7-4 14 0"/></svg><span></span></button>`;
+
+    document.querySelectorAll(".bottom-nav").forEach(nav => {
+      nav.innerHTML = navMarkup;
+    });
+
+    const screens = [...document.querySelectorAll(".screen")];
+
+    function openScreen(name) {
+      screens.forEach(screen => {
+        screen.classList.toggle("active", screen.dataset.screen === name);
+      });
+      document.querySelectorAll(".bottom-nav .nav").forEach(btn => {
+        btn.classList.toggle("active", btn.dataset.open === name || (name === "daily" && btn.dataset.open === "calendar"));
+      });
+    }
+
+    document.addEventListener("click", event => {
+      const opener = event.target.closest("[data-open]");
+      if (opener) openScreen(opener.dataset.open);
+      const homeTab = event.target.closest("[data-home-tab]");
+      if (homeTab) {
+        document.querySelectorAll("[data-home-tab]").forEach(tab => tab.classList.toggle("active", tab === homeTab));
+        const dashboard = homeTab.dataset.homeTab === "dashboard";
+        document.getElementById("dashboardView").hidden = !dashboard;
+        document.getElementById("activitiesView").hidden = dashboard;
+      }
+    });
+  </script>
+</body>
+</html>

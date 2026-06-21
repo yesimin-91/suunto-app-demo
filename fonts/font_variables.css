@@ -1,0 +1,311 @@
+/* Collection name: Language modes */
+/* Mode: EN */
+:root {
+  --font-family-header: Proxima Nova;
+  --font-family-body: Proxima Nova;
+  --font-weight-bold: Bold;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 45;
+  --line-height-(px)-header-xl: 30;
+  --line-height-(px)-header-l: 27;
+  --line-height-(px)-header-m: 22;
+  --line-height-(px)-header-s: 20;
+  --line-height-(px)-header-xs: 16;
+  --line-height-(px)-body-l: 20;
+  --line-height-(px)-body-m: 18;
+  --line-height-(px)-body-s: 16;
+  --line-height-(px)-body-xs: 14;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0;
+  --letter-spacing-(px)-header-s: 0;
+  --letter-spacing-(px)-header-xs: 0;
+  --letter-spacing-(px)-body-l: 0;
+  --letter-spacing-(px)-body-m: 0;
+  --letter-spacing-(px)-body-s: 0;
+  --letter-spacing-(px)-body-xs: 0;
+}
+
+/* Collection name: Language modes */
+/* Mode: EN */
+:root {
+  --font-family-header: Proxima Nova;
+  --font-family-body: Proxima Nova;
+  --font-weight-bold: Bold;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 45;
+  --line-height-(px)-header-xl: 30;
+  --line-height-(px)-header-l: 27;
+  --line-height-(px)-header-m: 22;
+  --line-height-(px)-header-s: 20;
+  --line-height-(px)-header-xs: 16;
+  --line-height-(px)-body-l: 20;
+  --line-height-(px)-body-m: 18;
+  --line-height-(px)-body-s: 16;
+  --line-height-(px)-body-xs: 14;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0;
+  --letter-spacing-(px)-header-s: 0;
+  --letter-spacing-(px)-header-xs: 0;
+  --letter-spacing-(px)-body-l: 0;
+  --letter-spacing-(px)-body-m: 0;
+  --letter-spacing-(px)-body-s: 0;
+  --letter-spacing-(px)-body-xs: 0;
+}
+
+/* Collection name: Language modes */
+/* Mode: ZH_iOS */
+:root {
+  --font-family-header: PingFang SC;
+  --font-family-body: PingFang SC;
+  --font-weight-bold: Semibold;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0.4000000059604645;
+  --letter-spacing-(px)-header-xl: 0.25999999046325684;
+  --letter-spacing-(px)-header-l: 0.23999999463558197;
+  --letter-spacing-(px)-header-m: 0.36000001430511475;
+  --letter-spacing-(px)-header-s: 0.3199999928474426;
+  --letter-spacing-(px)-header-xs: 0.2800000011920929;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
+
+/* Collection name: Language modes */
+/* Mode: ZH_Android */
+:root {
+  --font-family-header: Noto Sans SC;
+  --font-family-body: Noto Sans SC;
+  --font-weight-bold: Medium;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0.4000000059604645;
+  --letter-spacing-(px)-header-xl: 0.25999999046325684;
+  --letter-spacing-(px)-header-l: 0.23999999463558197;
+  --letter-spacing-(px)-header-m: 0.36000001430511475;
+  --letter-spacing-(px)-header-s: 0.3199999928474426;
+  --letter-spacing-(px)-header-xs: 0.2800000011920929;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
+
+/* Collection name: Language modes */
+/* Mode: JA_iOS */
+:root {
+  --font-family-header: Hiragino Sans;
+  --font-family-body: Hiragino Sans;
+  --font-weight-bold: W6;
+  --font-weight-regular: W3;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0.18000000715255737;
+  --letter-spacing-(px)-header-s: 0.1599999964237213;
+  --letter-spacing-(px)-header-xs: 0.14000000059604645;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
+
+/* Collection name: Language modes */
+/* Mode: JA_Android */
+:root {
+  --font-family-header: Noto Sans JP;
+  --font-family-body: Noto Sans JP;
+  --font-weight-bold: Medium;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0.18000000715255737;
+  --letter-spacing-(px)-header-s: 0.1599999964237213;
+  --letter-spacing-(px)-header-xs: 0.14000000059604645;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
+
+/* Collection name: Language modes */
+/* Mode: KO_iOS */
+:root {
+  --font-family-header: Apple SD Gothic Neo;
+  --font-family-body: Apple SD Gothic Neo;
+  --font-weight-bold: Semibold;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0.18000000715255737;
+  --letter-spacing-(px)-header-s: 0.1599999964237213;
+  --letter-spacing-(px)-header-xs: 0.14000000059604645;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
+
+/* Collection name: Language modes */
+/* Mode: KO_Android */
+:root {
+  --font-family-header: Noto Sans KR;
+  --font-family-body: Noto Sans KR;
+  --font-weight-bold: Medium;
+  --font-weight-regular: Regular;
+  --font-size-(px)-header-xxl: 40;
+  --font-size-(px)-header-xl: 26;
+  --font-size-(px)-header-l: 24;
+  --font-size-(px)-header-m: 18;
+  --font-size-(px)-header-s: 16;
+  --font-size-(px)-header-xs: 14;
+  --font-size-(px)-body-l: 16;
+  --font-size-(px)-body-m: 14;
+  --font-size-(px)-body-s: 12;
+  --font-size-(px)-body-xs: 10;
+  --line-height-(px)-header-xxl: 56;
+  --line-height-(px)-header-xl: 36;
+  --line-height-(px)-header-l: 32;
+  --line-height-(px)-header-m: 28;
+  --line-height-(px)-header-s: 24;
+  --line-height-(px)-header-xs: 20;
+  --line-height-(px)-body-l: 26;
+  --line-height-(px)-body-m: 24;
+  --line-height-(px)-body-s: 20;
+  --line-height-(px)-body-xs: 16;
+  --letter-spacing-(px)-header-xxl: 0;
+  --letter-spacing-(px)-header-xl: 0;
+  --letter-spacing-(px)-header-l: 0;
+  --letter-spacing-(px)-header-m: 0.18000000715255737;
+  --letter-spacing-(px)-header-s: 0.1599999964237213;
+  --letter-spacing-(px)-header-xs: 0.14000000059604645;
+  --letter-spacing-(px)-body-l: 0.47999998927116394;
+  --letter-spacing-(px)-body-m: 0.41999998688697815;
+  --letter-spacing-(px)-body-s: 0.47999998927116394;
+  --letter-spacing-(px)-body-xs: 0.5;
+}
