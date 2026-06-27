@@ -401,7 +401,7 @@ Primary local assets include:
 | Runtime semantic theme file | `../docs/suunto-semantic-colors.css` |
 | Watch/device images | `../assets/Watch.png` |
 | Avatar/background images | `../assets/Avatar.png`, `../assets/profile bg.png` |
-| Activity/map/media assets | `../assets/map.png`, `../assets/.ShareCrouselItem 1.png` etc. |
+| Activity/map/media assets | `../assets/map.png`, `../assets/ShareCrouselItem 1.png` etc. |
 | Badge assets | `../assets/Achievement badge 1.png` etc. |
 | Icon assets | `../assets/icons/figma/*` |
 
@@ -443,7 +443,7 @@ Library evaluation summary:
 - Large Figma nodes are unstable to read in one call; design alignment should continue component by component
 - Single-file implementation is fast to review but harder to scale without later refactoring
 - Some icons still depend on asset export quality and naming consistency
-- Hidden filenames such as `.ShareCrouselItem` are usable locally but not ideal for long-term packaging
+- Media filenames use plain names such as `ShareCrouselItem 1.png` for long-term packaging
 - Because this is a demo, some visual modules are presentation-only and do not represent complete business logic
 
 ## 17. Acceptance Criteria
