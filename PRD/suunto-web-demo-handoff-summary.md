@@ -14,6 +14,8 @@
 
 - 中文：通过 `Settings > Appearance` 切换全局 Light / Dark mode，完整展示同一套 UI 的双主题效果。
 - English: Use `Settings > Appearance` to switch the global Light / Dark theme and demonstrate the same UI in both modes.
+- 中文：当前界面统一使用 16px 左右边距体系，主题切换只改颜色，不改布局。
+- English: The current interface uses a unified 16px side-margin system, and theme switching only changes colors, not layout.
 
 ## 3. Scope / 范围
 
@@ -71,6 +73,7 @@
 - `Light` = Light
 - Theme switching must affect all major screens
 - UI chrome, text, surface, border, and icon colors should follow semantic theme tokens
+- Settings appearance switching must not change spacing or element positions
 
 ## 7. Data / Assets / Implementation
 

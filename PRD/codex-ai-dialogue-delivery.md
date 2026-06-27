@@ -22,6 +22,7 @@
 - 覆盖 Home、Calendar、Daily、Training、Profile、Settings、Pairing
 - 使用单文件方式实现核心 Demo
 - 支持 `Settings > Appearance` 全局 Light / Dark 主题切换
+- 当前界面统一收口为 16px 左右边距体系，主题切换只改变颜色，不改变布局
 - 不依赖后端和构建流程
 
 ## 3. 为什么这份文档能证明 Codex 使用能力

@@ -269,7 +269,7 @@
       display: grid;
       grid-template-columns: 48px 1fr 48px;
       align-items: center;
-      padding: 0 8px;
+      padding: 0 16px;
     }
 
     .topbar h1 {
@@ -739,16 +739,6 @@
     html[data-theme="light"] .wide-map,
     html[data-theme="light"] .daily-panel.sleep-panel {
       background: var(--app);
-    }
-
-    html[data-theme="light"] .settings-section {
-      background: var(--surface-2);
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-    }
-
-    html[data-theme="light"] .settings-section:first-of-type {
-      border-top: 0;
     }
 
     html[data-theme="light"] .daily-chip,
@@ -2148,9 +2138,9 @@
 
     .wide-map {
       height: 375px;
-      margin: 0 -16px;
+      margin: 0;
       overflow: hidden;
-      border-radius: 0;
+      border-radius: 20px;
       background: var(--app-background-default);
       position: relative;
     }
@@ -4282,8 +4272,8 @@
     }
 
     .profile-card {
-      width: 343px;
-      margin: 0 auto 16px;
+      width: auto;
+      margin: 0 0 16px;
       padding: 0 0 16px;
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
@@ -4635,8 +4625,8 @@
     }
 
     .profile-panel {
-      width: 343px;
-      margin: 0 auto 16px;
+      width: auto;
+      margin: 0 0 16px;
       border: 1px solid var(--border-subtle);
       border-radius: 16px;
       background: var(--text-icon-black-shared);
