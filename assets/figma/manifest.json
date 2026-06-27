@@ -1,0 +1,30 @@
+{
+  "source": {
+    "file": "App Colors 2.0",
+    "homeNodeId": "8814:176621",
+    "iconNodeId": "10051:263019",
+    "mcpBaseUrl": "http://127.0.0.1:3845/mcp"
+  },
+  "mirroredAt": "2026-06-21",
+  "assets": [
+    "assets/icons/figma/watch_fill.svg",
+    "assets/icons/figma/more_vertical_outline.svg",
+    "assets/icons/figma/plus_outline.svg",
+    "assets/icons/figma/notification_bell_outline.svg",
+    "assets/icons/figma/feed_fill.svg",
+    "assets/icons/figma/calendar_outline.svg",
+    "assets/icons/figma/trends_outline.svg",
+    "assets/icons/figma/profile_outline.svg",
+    "assets/icons/figma/steps_fill.svg",
+    "assets/icons/figma/hrv_fill.svg",
+    "assets/icons/figma/training_stress_score_fill.svg",
+    "assets/icons/figma/duration_fill.svg",
+    "assets/icons/figma/vo2_fill.svg",
+    "assets/icons/figma/recovery_fill.svg",
+    "assets/icons/figma/sleep_fill.svg",
+    "assets/icons/figma/heart_fill.svg",
+    "assets/icons/figma/calories_fill.svg",
+    "assets/icons/figma/running_glyph.svg",
+    "assets/icons/figma/cycling_glyph.svg"
+  ]
+}

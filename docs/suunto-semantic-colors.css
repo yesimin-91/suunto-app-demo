@@ -1,0 +1,118 @@
+/* Derived from docs/color_variables.css
+   - Suunto/Light Mode
+   - Suunto/Dark Mode
+*/
+
+:root[data-theme="dark"] {
+  --app-background-default: #000000;
+  --app-background-list-view: #121212;
+  --surface-app-bar: #000000;
+  --surface-default: #171719;
+  --surface-subtle-1: #222324;
+  --surface-subtle-2: #222324;
+  --surface-subtle-3: #303030;
+  --surface-transparent-on-image: rgba(0, 0, 0, 0.50);
+  --surface-transparent-muted: rgba(0, 0, 0, 0.22);
+  --surface-transparent-heavy: rgba(0, 0, 0, 0.68);
+  --surface-transparent-overlay: rgba(0, 0, 0, 0.40);
+  --text-icon-primary: #d7dadd;
+  --text-icon-secondary: #8f9194;
+  --text-icon-subtle: #8f9194;
+  --text-icon-inverted: #000000;
+  --text-icon-white-shared: #ffffff;
+  --text-icon-black-shared: #171719;
+  --text-icon-brand-primary: #59c7fe;
+  --border-default: #454649;
+  --border-strong-1: #252525;
+  --border-strong-2: #222324;
+  --border-strong-3: #d7dadd;
+  --border-inverted: #171719;
+  --shadow-subtle: rgba(0, 0, 0, 0.18);
+  --shadow-medium: rgba(0, 0, 0, 0.28);
+  --shadow-phone: 0 18px 70px rgba(0, 0, 0, 0.45);
+  --glass-stroke-strong: rgba(255, 255, 255, 0.16);
+  --glass-stroke-soft: rgba(255, 255, 255, 0.08);
+  --blue: #59c7fe;
+  --yellow: #ffce4d;
+  --orange: #ff8b5f;
+  --green: #55d781;
+  --lime: #c8e879;
+  --red: #fc4044;
+  --purple: #ae97ee;
+  --pink: #f1adbd;
+  --activity-steps: #66b6ff;
+  --activity-recovery-resources: #c8e879;
+  --tss-tss: #ffce4d;
+  --activity-exercise: #92e2c1;
+  --sport-running: #ffce4d;
+  --sport-cycling: #ff7c3b;
+  --sport-outdoor-adventures: #55d781;
+  --sleep-light: #9a7dea;
+  --activity-heartrate: #fc4044;
+  --activity-menstrual-cycle: #e9839c;
+  --activity-calories: #ffce4d;
+  --activity-commuting: #99deb0;
+  --sleep-awake: #f1adbd;
+  --sleep-rem: #d7cbf7;
+  --sleep-deep: #7b64bb;
+  --impact-vo2-max: #7b64bb;
+  --impact-long-aerobic: #b0e442;
+  --impact-aerobic: #047bff;
+}
+
+:root[data-theme="light"] {
+  --app-background-default: #ffffff;
+  --app-background-list-view: #ffffff;
+  --surface-app-bar: #ffffff;
+  --surface-default: #ffffff;
+  --surface-subtle-1: #f7f8fa;
+  --surface-subtle-2: #f7f8fa;
+  --surface-subtle-3: #e8e9eb;
+  --surface-transparent-on-image: rgba(255, 255, 255, 0.60);
+  --surface-transparent-muted: rgba(255, 255, 255, 0.22);
+  --surface-transparent-heavy: rgba(255, 255, 255, 0.68);
+  --surface-transparent-overlay: rgba(0, 0, 0, 0.40);
+  --text-icon-primary: #303030;
+  --text-icon-secondary: #8f9194;
+  --text-icon-subtle: #8f9194;
+  --text-icon-inverted: #ffffff;
+  --text-icon-white-shared: #ffffff;
+  --text-icon-black-shared: #171719;
+  --text-icon-brand-primary: #16b4ea;
+  --border-default: #d7dadd;
+  --border-strong-1: #e8e9eb;
+  --border-strong-2: #e8e9eb;
+  --border-strong-3: #303030;
+  --border-inverted: #ffffff;
+  --shadow-subtle: rgba(23, 23, 25, 0.08);
+  --shadow-medium: rgba(23, 23, 25, 0.16);
+  --shadow-phone: 0 18px 70px rgba(31, 37, 43, 0.16);
+  --glass-stroke-strong: rgba(23, 23, 25, 0.12);
+  --glass-stroke-soft: rgba(23, 23, 25, 0.08);
+  --blue: #16b4ea;
+  --yellow: #ffce4d;
+  --orange: #ff8b5f;
+  --green: #55d781;
+  --lime: #c8e879;
+  --red: #fc4044;
+  --purple: #ae97ee;
+  --pink: #f1adbd;
+  --activity-steps: #66b6ff;
+  --activity-recovery-resources: #c8e879;
+  --tss-tss: #ffce4d;
+  --activity-exercise: #92e2c1;
+  --sport-running: #ffce4d;
+  --sport-cycling: #ff7c3b;
+  --sport-outdoor-adventures: #55d781;
+  --sleep-light: #9a7dea;
+  --activity-heartrate: #fc4044;
+  --activity-menstrual-cycle: #e9839c;
+  --activity-calories: #ffce4d;
+  --activity-commuting: #99deb0;
+  --sleep-awake: #f1adbd;
+  --sleep-rem: #d7cbf7;
+  --sleep-deep: #7b64bb;
+  --impact-vo2-max: #7b64bb;
+  --impact-long-aerobic: #b0e442;
+  --impact-aerobic: #047bff;
+}
