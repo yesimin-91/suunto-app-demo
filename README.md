@@ -5,11 +5,10 @@
 ## 预览目标
 
 - 首页 Dashboard
-- Calendar 月历与日详情
+- Calendar 月历
 - Training 训练分析页
 - Profile 个人中心
 - Settings 设置页
-- Pairing / Device 设备页
 - `Settings > Appearance` 全局主题切换
 
 ## 快速开始
